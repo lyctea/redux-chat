@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "testServer": "mocha --compilers js:babel-core/register --require ./test/serverTestHelper.js ./test/server --recursive",
+    "testServer": "mocha --compilers js:babel-core/register --require ./test/serverTextHelper.js ./test/server --recursive",
     "testServer:watch": "npm run testServer -- --watch"
   },
   "babel": {
@@ -21,6 +21,7 @@
     "babel-preset-es2015": "^6.18.0",
     "chai": "^3.5.0",
     "chai-immutable": "^1.6.0",
+    "immutable": "^3.8.1",
     "mocha": "^3.2.0",
     "redux": "^3.6.0"
   }
