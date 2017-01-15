@@ -3,6 +3,7 @@ import { fromJS, Map, List } from 'immutable'
 import { v1 } from "uuid"
 
 import coreReducer from '../../src/server/reducer'
+import { addRoom,removeRoom } from "../../src/server/actionCreator.js"
 
 describe("server端核心Reducer",()=>{
     it("可以当做一个reducer",()=>{
@@ -18,4 +19,19 @@ describe("server端核心Reducer",()=>{
         expect(finalState.get("rooms").size).to.equal(2)
         expect(finalState.getIn(["rooms",0,"owner"])).to.equal("terry")
     })
+
+    it("使用actionCreator",()=>{
+        var id = v1()
+        var actions = [
+            addRoom({id,name:"1",owner:"eisneim"}),
+            addRoom({name:"2",owner:"terry"}),
+            addRoom({name:"3",owner:"eisneim"}),
+            removeRoom({id:id,user:"eisneim"}),
+        ]
+        const finalState = actions.reduce(coreReducer, undefined)
+
+        expect(finalState.get("rooms").size).to.equal(2)
+        expect(finalState.getIn(["rooms",0,"owner"])).to.equal("terry")
+    })
+
 })
