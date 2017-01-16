@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Redux socket.io Chat app</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<div id="app">这是模板html</div>
+	<script src="/build/boundle.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io();
+        socket.on("state", function (state) {
+            console.log("get state",state)
+        })
+    </script>
+</body>
+</html>
