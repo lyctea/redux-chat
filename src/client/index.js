@@ -2,14 +2,22 @@ import ReactDOM from 'react-dom'
 import React from 'react'
 import App from './components/App'
 
-import {createStore} from 'redux'
 import rootReducer from './reducer'
 import {setState, newMessage } from './actionCreators'
 import {getinitialState,saveToStorage} from './store'
 
+import {createStore, applyMiddleware} from 'redux'
+import {socketMiddleware,logger} from './middleware'
+
 import {socket} from "./io"
 
-const store = createStore(rootReducer,getinitialState())
+
+const createStoreWithMiddleware = applyMiddleware(
+    logger,
+    socketMiddleware(socket)
+)(createStore)
+
+const store = createStoreWithMiddleware(rootReducer,getinitialState())
 
 socket.on("state", state=>{
     store.dispatch(setState(state))
