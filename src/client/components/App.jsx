@@ -24,13 +24,26 @@ class App extends Component {
     }
 
     addRoom(){
+        var name = prompt("房间名称")
+        if (!name) return alert("不能没有房间名称")
 
+        this.props.dispatch(addRoom({
+            name, owner: this.props.username
+        }))
     }
     removeRoom(){
+        this.props.dispatch(switchRoom())
 
+        this.props.dispatch(removeRoom(
+            this.props.currentRoom, this.props.username
+        ))
     }
-    sendMessage(){
-
+    sendMessage(message){
+        this.props.dispatch(newMessage({
+            roomId: this.props.currentRoom,
+            user: this.props.username,
+            content: message
+        }))
     }
 
     render(){
@@ -41,7 +54,7 @@ class App extends Component {
             <div className="flex-row">
                 <nav id="chat-nav">
                     <p>聊天室列表</p>
-                    <RoomList rooms={roms}
+                    <RoomList rooms={rooms}
                               currentRoom={currentRoom}
                               switchRoom={id=>{"do something"}} />
                     <button className="btn color-2"
